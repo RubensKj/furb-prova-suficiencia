@@ -17,7 +17,13 @@ public class PalavraCruzadaMain {
 
         String textoDigitado = "";
         do {
-            printaMenu();
+            System.out.println("_________ Menu: Palavra Cruzada _________");
+            System.out.println("1. listar NAO resolvido: palavras");
+            System.out.println("2. listar NAO resolvido: mapa");
+            System.out.println("3. listar RESOLVIDO: palavras");
+            System.out.println("4. sair");
+
+            System.out.print(" __ opção: ");
 
             String textoDigitadoNovo = teclado.next();
 
@@ -40,15 +46,5 @@ public class PalavraCruzadaMain {
                     break;
             }
         } while (!textoDigitado.equals("4"));
-    }
-
-    private static void printaMenu() {
-        System.out.println("_________ Menu: Palavra Cruzada _________");
-        System.out.println("1. listar NAO resolvido: palavras");
-        System.out.println("2. listar NAO resolvido: mapa");
-        System.out.println("3. listar RESOLVIDO: palavras");
-        System.out.println("4. sair");
-
-        System.out.print(" __ opção: ");
     }
 }
