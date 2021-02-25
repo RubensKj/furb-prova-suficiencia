@@ -39,10 +39,8 @@ public class PalavraCruzadaMapa {
     private void procuraHorizontal(String[][] palavras) {
         for (int i = 0; i < mapaQtdLinha; i++) {
             String textLine = "";
-            int textoIndiceFinal = 0;
             for (int j = 0; j < mapaQtdColuna; j++) {
                 textLine += mapa[i][j];
-                textoIndiceFinal = j;
             }
 
             String textInverted = inverteTexto(textLine);
@@ -55,7 +53,7 @@ public class PalavraCruzadaMapa {
                 }
 
                 if (textInverted.contains(palavra)) {
-                    salvaPalavra(k, palavra, textInverted, palavras, i, textoIndiceFinal);
+                    salvaPalavra(k, palavra, textInverted, palavras, i, (textLine.length() - 1) - textInverted.indexOf(palavra));
                 }
             }
         }
@@ -64,10 +62,8 @@ public class PalavraCruzadaMapa {
     private void procuraVertical(String[][] palavras) {
         for (int i = 0; i < mapaQtdColuna; i++) {
             String textLine = "";
-            int textoIndiceFinal = 0;
             for (int j = 0; j < mapaQtdLinha; j++) {
                 textLine += mapa[j][i];
-                textoIndiceFinal = j;
             }
 
             String textInverted = inverteTexto(textLine);
@@ -80,7 +76,7 @@ public class PalavraCruzadaMapa {
                 }
 
                 if (textInverted.contains(palavra)) {
-                    salvaPalavra(k, palavra, textInverted, palavras, textoIndiceFinal, i);
+                    salvaPalavra(k, palavra, textInverted, palavras, (textLine.length() - 1) - textInverted.indexOf(palavra), i);
                 }
             }
         }
