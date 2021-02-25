@@ -8,7 +8,7 @@ public class PalavraCruzadaMain {
     private static PalavraCruzadaMapa mapa;
 
     public static void main(String[] args) {
-        init();
+        iniciaValores();
 
         mapa.mapaBusca(palavras.palavrasVetor());
 
@@ -32,6 +32,7 @@ public class PalavraCruzadaMain {
                     break;
                 case "4":
                     textoDigitado = textoDigitadoNovo;
+                    System.out.println("----------------------------");
                     break;
                 default:
                     System.out.println("opção errada!");
@@ -40,7 +41,7 @@ public class PalavraCruzadaMain {
         } while (!textoDigitado.equals("4"));
     }
 
-    private static void init() {
+    private static void iniciaValores() {
         palavras = new PalavraCruzadaPalavras();
         mapa = new PalavraCruzadaMapa();
     }

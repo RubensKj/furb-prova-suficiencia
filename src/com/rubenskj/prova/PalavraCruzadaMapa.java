@@ -44,7 +44,7 @@ public class PalavraCruzadaMapa {
                 textLine += mapa[i][j];
             }
 
-            String textInverted = inverteTexto(textLine);
+            String textoInvertido = inverteTexto(textLine);
 
             for (int k = 0; k < palavras.length; k++) {
                 String palavra = palavras[k][0];
@@ -53,8 +53,8 @@ public class PalavraCruzadaMapa {
                     salvaPalavra(k, palavra, textLine, palavras, i, textLine.indexOf(palavra));
                 }
 
-                if (textInverted.contains(palavra)) {
-                    salvaPalavra(k, palavra, textInverted, palavras, i, (textLine.length() - 1) - textInverted.indexOf(palavra));
+                if (textoInvertido.contains(palavra)) {
+                    salvaPalavra(k, palavra, textoInvertido, palavras, i, (textLine.length() - 1) - textoInvertido.indexOf(palavra));
                 }
             }
         }
@@ -67,7 +67,7 @@ public class PalavraCruzadaMapa {
                 textLine += mapa[j][i];
             }
 
-            String textInverted = inverteTexto(textLine);
+            String textoInvertido = inverteTexto(textLine);
 
             for (int k = 0; k < palavras.length; k++) {
                 String palavra = palavras[k][0];
@@ -76,8 +76,8 @@ public class PalavraCruzadaMapa {
                     salvaPalavra(k, palavra, textLine, palavras, textLine.indexOf(palavra), i);
                 }
 
-                if (textInverted.contains(palavra)) {
-                    salvaPalavra(k, palavra, textInverted, palavras, (textLine.length() - 1) - textInverted.indexOf(palavra), i);
+                if (textoInvertido.contains(palavra)) {
+                    salvaPalavra(k, palavra, textoInvertido, palavras, (textLine.length() - 1) - textoInvertido.indexOf(palavra), i);
                 }
             }
         }
@@ -85,33 +85,33 @@ public class PalavraCruzadaMapa {
 
     private String inverteTexto(String text) {
         char characters[] = text.toCharArray();
-        String textInverted = "";
+        String textoInvertido = "";
 
         for (int i = characters.length - 1; i >= 0; i--) {
-            textInverted += characters[i];
+            textoInvertido += characters[i];
         }
 
-        return textInverted;
+        return textoInvertido;
     }
 
     private void salvaPalavra(int palavraIndice, String palavra, String textLine, String[][] palavras, int linhaIndice, int colunaIndice) {
-        String wordInTextline = pegaPalavraNaLinha(palavra, textLine);
+        String palavraDoTexto = pegaPalavraNaLinha(palavra, textLine);
 
-        palavras[palavraIndice][1] = formataPalavra(linhaIndice, colunaIndice, wordInTextline);
+        palavras[palavraIndice][1] = formataPalavra(linhaIndice, colunaIndice, palavraDoTexto);
     }
 
     private String pegaPalavraNaLinha(String palavra, String textLine) {
         int indexBegin = textLine.indexOf(palavra);
 
         if (indexBegin == -1) {
-            return null;
+            return "";
         }
 
         return textLine.substring(indexBegin, palavra.length() + indexBegin);
     }
 
-    private String formataPalavra(int i, int k, String textLine) {
-        return "[" + i + "," + k + "] - " + textLine;
+    private String formataPalavra(int i, int k, String palavra) {
+        return "[" + i + "," + k + "] - " + palavra;
     }
 
     private void validaNaoEncontrados(String[][] palavras) {
