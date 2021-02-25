@@ -35,13 +35,7 @@ public class PalavraCruzadaPalavras {
 
     public void palavrasSaidaResolvido() {
         for (int i = 0; i < palavras.length; i++) {
-            String text = palavras[i][1];
-
-            if (text == null) {
-                System.out.println(".... NÃO achou _ " + palavras[i][0]);
-            } else {
-                System.out.println(text);
-            }
+            System.out.println(palavras[i][1]);
         }
         System.out.println("----------------------------");
     }

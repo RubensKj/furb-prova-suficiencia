@@ -34,6 +34,17 @@ public class PalavraCruzadaMapa {
     public void mapaBusca(String[][] palavras) {
         procuraHorizontal(palavras);
         procuraVertical(palavras);
+        validaNaoEncontrados(palavras);
+    }
+
+    private void validaNaoEncontrados(String[][] palavras) {
+        for (int i = 0; i < palavras.length; i++) {
+            String text = palavras[i][1];
+
+            if (text == null) {
+                palavras[i][1] = ".... NÃO achou _ " + palavras[i][0];
+            }
+        }
     }
 
     private void procuraHorizontal(String[][] palavras) {
