@@ -31,69 +31,62 @@ public class PalavraCruzadaMapa {
         System.out.println("----------------------------");
     }
 
-    // TODO: Implement mapaBusca like documentation
-    // Result should be this
-    //        palavras[0][1] = "[1,0] - IFELSE";
-    //        palavras[1][1] = ".... NÃO achou _ FORA";
-    //        palavras[2][1] = "[3,4] - WHILE";
-    //        palavras[3][1] = "[9,3] - OBJETO";
-    //        palavras[4][1] = "[9,0] - VETOR";
     public void mapaBusca(String[][] palavras) {
-        searchHorizontal(palavras);
-        searchHorizontalInverted(palavras);
-        searchVertical(palavras);
-        searchVerticalInverted(palavras);
+        procuraHorizontal(palavras);
+        procuraVertical(palavras);
     }
 
-    private void searchHorizontal(String[][] palavras) {
+    private void procuraHorizontal(String[][] palavras) {
         for (int i = 0; i < mapaQtdLinha; i++) {
             String textLine = "";
-            int locationText = 0;
+            int textoIndiceFinal = 0;
             for (int j = 0; j < mapaQtdColuna; j++) {
                 textLine += mapa[i][j];
-                locationText = j;
+                textoIndiceFinal = j;
             }
 
+            String textInverted = inverteTexto(textLine);
+
             for (int k = 0; k < palavras.length; k++) {
-                if (textLine.equals(palavras[k][0])) {
-                    palavras[k][1] = formatField(i, subtractTextLength(locationText, textLine, false), textLine);
+                String palavra = palavras[k][0];
+
+                if (textLine.contains(palavra)) {
+                    salvaPalavra(k, palavra, textLine, palavras, i, textLine.indexOf(palavra));
+                }
+
+                if (textInverted.contains(palavra)) {
+                    salvaPalavra(k, palavra, textInverted, palavras, i, textoIndiceFinal);
                 }
             }
         }
     }
 
-    private void searchHorizontalInverted(String[][] palavras) {
-        for (int i = 0; i < mapaQtdLinha; i++) {
+    private void procuraVertical(String[][] palavras) {
+        for (int i = 0; i < mapaQtdColuna; i++) {
             String textLine = "";
-            int locationText = 0;
-            for (int j = 0; j < mapaQtdColuna; j++) {
-                textLine += mapa[i][j];
-                locationText = j;
+            int textoIndiceFinal = 0;
+            for (int j = 0; j < mapaQtdLinha; j++) {
+                textLine += mapa[j][i];
+                textoIndiceFinal = j;
             }
 
-            textLine = invertText(textLine);
+            String textInverted = inverteTexto(textLine);
 
             for (int k = 0; k < palavras.length; k++) {
-                if (textLine.equals(palavras[k][0])) {
-                    palavras[k][1] = formatField(i, subtractTextLength(locationText, textLine, true), textLine);
+                String palavra = palavras[k][0];
+
+                if (textLine.contains(palavra)) {
+                    salvaPalavra(k, palavra, textLine, palavras, textLine.indexOf(palavra), i);
+                }
+
+                if (textInverted.contains(palavra)) {
+                    salvaPalavra(k, palavra, textInverted, palavras, textoIndiceFinal, i);
                 }
             }
         }
     }
 
-    // TODO: Implement Vertical
-    // This will read the columns first (until the bottom) and if each line sum the text
-    private void searchVertical(String[][] palavras) {
-
-    }
-
-    // TODO: Implement Vertical Inverted
-    // This will read the columns first (until the bottom) and if each line sum the text but we are going to use the invertText
-    private void searchVerticalInverted(String[][] palavras) {
-
-    }
-
-    private String invertText(String text) {
+    private String inverteTexto(String text) {
         char characters[] = text.toCharArray();
         String textInverted = "";
 
@@ -104,16 +97,24 @@ public class PalavraCruzadaMapa {
         return textInverted;
     }
 
-    private String formatField(int i, int k, String textLine) {
-        return "[" + i + "," + k + "] - " + textLine;
+    private void salvaPalavra(int palavraIndice, String palavra, String textLine, String[][] palavras, int linhaIndice, int colunaIndice) {
+        String wordInTextline = pegaPalavraNaLinha(palavra, textLine);
+
+        palavras[palavraIndice][1] = formataPalavra(linhaIndice, colunaIndice, wordInTextline);
     }
 
-    private int subtractTextLength(int k, String textLine, boolean isInverted) {
-        if (isInverted) {
-            return k;
-        } else {
-            return (k - (textLine.length() - 1));
+    private String pegaPalavraNaLinha(String palavra, String textLine) {
+        int indexBegin = textLine.indexOf(palavra);
+
+        if (indexBegin == -1) {
+            return null;
         }
+
+        return textLine.substring(indexBegin, palavra.length() + indexBegin);
+    }
+
+    private String formataPalavra(int i, int k, String textLine) {
+        return "[" + i + "," + k + "] - " + textLine;
     }
 
     private void mapaEntrada() {
