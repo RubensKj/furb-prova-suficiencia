@@ -37,16 +37,6 @@ public class PalavraCruzadaMapa {
         validaNaoEncontrados(palavras);
     }
 
-    private void validaNaoEncontrados(String[][] palavras) {
-        for (int i = 0; i < palavras.length; i++) {
-            String text = palavras[i][1];
-
-            if (text == null) {
-                palavras[i][1] = ".... NÃO achou _ " + palavras[i][0];
-            }
-        }
-    }
-
     private void procuraHorizontal(String[][] palavras) {
         for (int i = 0; i < mapaQtdLinha; i++) {
             String textLine = "";
@@ -122,6 +112,16 @@ public class PalavraCruzadaMapa {
 
     private String formataPalavra(int i, int k, String textLine) {
         return "[" + i + "," + k + "] - " + textLine;
+    }
+
+    private void validaNaoEncontrados(String[][] palavras) {
+        for (int i = 0; i < palavras.length; i++) {
+            String text = palavras[i][1];
+
+            if (text == null) {
+                palavras[i][1] = ".... NÃO achou _ " + palavras[i][0];
+            }
+        }
     }
 
     private void mapaEntrada() {
